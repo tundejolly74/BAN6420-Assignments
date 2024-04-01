@@ -1,0 +1,49 @@
+import random
+
+# Define Worker class
+class Worker:
+    def __init__(self, name, gender, salary):
+        self.name = name
+        self.gender = gender
+        self.salary = salary
+        self.employee_level = None
+
+# Function to generate a random gender
+def generate_gender():
+    return random.choice(["Male", "Female"])
+
+# Function to generate a random salary
+def generate_salary():
+    return random.randint(5000, 50000)  # Random salary between $5000 and $50000
+
+# Function to generate payment slip for a worker
+def generate_payment_slip(worker):
+    print("Payment Slip for", worker.name)
+    print("Gender:", worker.gender)
+    print("Salary: $", worker.salary)
+    print("Employee Level:", worker.employee_level)
+    print("------------------------------------------")
+
+# Generate at least 400 workers
+num_workers = 400
+workers = []
+
+for i in range(1, num_workers + 1):
+    worker_name = f"Worker {i}"
+    worker_gender = generate_gender()
+    worker_salary = generate_salary()
+    workers.append(Worker(worker_name, worker_gender, worker_salary))
+
+# Generate payment slips for each worker
+for worker in workers:
+    try:
+        if 10000 < worker.salary < 20000:
+            worker.employee_level = "A1"
+        elif 7500 < worker.salary < 30000 and worker.gender == "Female":
+            worker.employee_level = "A5-F"
+        else:
+            worker.employee_level = "Unknown"
+        
+        generate_payment_slip(worker)
+    except Exception as e:
+        print(f"Error processing {worker.name}: {e}")
