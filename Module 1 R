@@ -1,0 +1,53 @@
+# Define Worker class
+Worker <- function(name, gender, salary) {
+  list(
+    name = name,
+    gender = gender,
+    salary = salary,
+    employee_level = NULL
+  )
+}
+
+# Function to generate a random gender
+generate_gender <- function() {
+  genders <- c("Male", "Female")
+  sample(genders, 1)
+}
+
+# Function to generate a random salary
+generate_salary <- function() {
+  sample(5000:50000, 1)  # Random salary between $5000 and $50000
+}
+
+# Function to generate payment slip for a worker
+generate_payment_slip <- function(worker) {
+  cat("Payment Slip for", worker$name, "\n")
+  cat("Gender:", worker$gender, "\n")
+  cat("Salary: $", worker$salary, "\n")
+  cat("Employee Level:", worker$employee_level, "\n")
+  cat("------------------------------------------\n")
+}
+
+# Generate at least 400 workers
+num_workers <- 400
+workers <- list()
+
+for (i in 1:num_workers) {
+  worker_name <- paste("Worker", i)
+  worker_gender <- generate_gender()
+  worker_salary <- generate_salary()
+  workers[[i]] <- Worker(worker_name, worker_gender, worker_salary)
+}
+
+# Generate payment slips for each worker
+for (worker in workers) {
+  if (worker$salary > 10000 & worker$salary < 20000) {
+    worker$employee_level <- "A1"
+  } else if (worker$salary > 7500 & worker$salary < 30000 & worker$gender == "Female") {
+    worker$employee_level <- "A5-F"
+  } else {
+    worker$employee_level <- "Unknown"
+  }
+  
+  generate_payment_slip(worker)
+}
